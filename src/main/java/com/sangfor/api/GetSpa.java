@@ -47,7 +47,7 @@ public class GetSpa {
         params.put("path", groupPath);
 
         String response = CommonUtil.openApiGetRequest(path, params);
-        System.out.println(response);
+        log.debug("Query group response: {}", response);
 
         CommonResponse<GroupResponse> commonResponse = JSONUtil.toBean(response, new TypeReference<CommonResponse<GroupResponse>>() {
         }, false);

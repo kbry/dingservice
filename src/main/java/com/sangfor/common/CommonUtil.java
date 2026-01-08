@@ -6,6 +6,8 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
@@ -22,6 +24,7 @@ import java.util.TreeMap;
 
 public class CommonUtil {
 
+    private static final Logger log = LoggerFactory.getLogger(CommonUtil.class);
     private static ConsoleCrypto consoleCrypto = null;
 
     private static String getRequestPath (String path) {
@@ -85,7 +88,7 @@ public class CommonUtil {
             // 将签名转换为十六进制字符串
             return bytesToHex(hash);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error("Error calculating signature: {}", e.getMessage(), e);
             return null;
         }
     }
@@ -144,7 +147,7 @@ public class CommonUtil {
             // 将加密后的数据转换为十六进制字符串
             return bytesToHex(encryptedData);
         } catch (Exception e) {
-            System.out.println(e.getMessage());;
+            log.error("Error encoding RSA: {}", e.getMessage(), e);
             return "";
         }
     }
